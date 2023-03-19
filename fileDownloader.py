@@ -7,7 +7,11 @@ import config
 import crawler
 import merge
 
-target_url = "https://ap-drop-monst.mushroomtrack.com/bcdn_token=KsvYYA3b74XJrmXVU5_qspYqXxvNYJLhpW5G15NM_9U&expires=1679261492&token_path=%2Fvod%2F/vod/14000/14703/14703.m3u8"
+# class VideoFile:
+#     def __init__(self, target_url):
+#         self.
+
+target_url = "https://ap-drop-monst.mushroomtrack.com/bcdn_token=KRr-lwAUkeeFnhnTuRYRexK0HpTUITl77oXC58ErM9Y&expires=1679272330&token_path=%2Fvod%2F/vod/14000/14703/14703.m3u8"
 # This URL is the target m3u8 file extracted from the website. https://jable.tv/videos/ipx-543/
 # TODO To scrape the html file from website.
 
@@ -33,6 +37,7 @@ downloadUriBase = '/'.join(temp)
 print(downloadUriBase)
 m3u8obj = m3u8.loads(r.text)
 
+ci = ''
 for key in m3u8obj.keys:
     if key:
         print(key.uri)
@@ -48,29 +53,28 @@ for key in m3u8obj.keys:
         vt = key.iv.replace("0x", "")[:16].encode()  # IV取前16位
 
         ci = AES.new(contentKey, AES.MODE_CBC, vt)  # 建構解碼器
-    else:
-        ci = ''
+
 
     print(vt)
 
     # use download URI base and the ts file to generate the list recording each file location
 
-    tsList = []
-    for seg in m3u8obj.segments:
-        tsUrl = downloadUriBase + '/' + seg.uri
-        tsList.append(tsUrl)
-    print(len(tsList))
+tsList = []
+for seg in m3u8obj.segments:
+    tsUrl = downloadUriBase + '/' + seg.uri
+    tsList.append(tsUrl)
+print(len(tsList))
 
-    # use download URI base and the ts file to generate the list recording each file location
+# use download URI base and the ts file to generate the list recording each file location
 
-    tsList = []
-    for seg in m3u8obj.segments:
-        tsUrl = downloadUriBase + '/' + seg.uri
-        tsList.append(tsUrl)
-    print(len(tsList))
+tsList = []
+for seg in m3u8obj.segments:
+    tsUrl = downloadUriBase + '/' + seg.uri
+    tsList.append(tsUrl)
+print(len(tsList))
 
-    # 開始爬蟲並下載mp4片段至資料夾
-    crawler.prepareCrawl(ci, folderPath, tsList)
+# 開始爬蟲並下載mp4片段至資料夾
+crawler.prepareCrawl(ci, folderPath, tsList)
 
-    # Merge
-    merge.mergeMp4(folderPath, tsList)
+# Merge
+merge.mergeMp4(folderPath, tsList)

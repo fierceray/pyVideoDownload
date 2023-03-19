@@ -6,50 +6,6 @@ from functools import partial
 import time
 import copy
 
-
-# def scrape(ci, folderPath, downloadList, urls):
-    # os.path.split(urls)
-    # fileName = urls.split('/')[-1][0:-3]
-    # saveName = os.path.join(folderPath, fileName + ".mp4")
-    # if os.path.exists(saveName):
-    #     # 跳過已下載
-    #     print('當前目標: {0} 已下載, 故跳過...剩餘 {1} 個'.format(
-    #         urls.split('/')[-1], len(downloadList)))
-    #     downloadList.remove(urls)
-    # else:
-    #     response = requests.get(urls, headers=headers, timeout=10)
-    #     if response.status_code == 200:
-    #         content_ts = response.content
-    #         if ci:
-    #             content_ts = ci.decrypt(content_ts)  # 解碼
-    #         with open(saveName, 'ab') as f:
-    #             f.write(content_ts)
-    #             # 輸出進度
-    #         downloadList.remove(urls)
-    #     print('\r當前下載: {0} , 剩餘 {1} 個, status code: {2}'.format(
-    #         urls.split('/')[-1], len(downloadList), response.status_code), end='', flush=True)
-
-
-# def scrape(ci, folderPath, downloadUrl):
-#     print(f"{a}, {b}, {c}")
-#     fileName = downloadUrl.split('/')[-1]
-#     savePath = pathlib.Path(folderPath, fileName)
-    
-#     if savePath.exists():
-#         # 跳過已下載
-#         print('當前目標: {0} 已下載, 故跳過...'.format(downloadUrl.split('/')[-1]))
-#     else:
-#         response = requests.get(downloadUrl, headers=config.getHeader(), timeout=10)
-#         if response.status_code == 200:
-#             content_ts = response.content
-#             if ci:
-#                 content_ts = ci.decrypt(content_ts)  # 解碼
-#             with open(savePath, 'ab') as f:
-#                 f.write(content_ts)
-#                 # 輸出進度
-#         print('\r當前下載: {0} , 剩餘 {1} 個, status code: {2}'.format(
-#             downloadUrl.split('/')[-1], response.status_code), end='', flush=True)
-
 def scrape(ci, folderPath, downloadUrl):
     fileName = downloadUrl.split('/')[-1]
     savePath = pathlib.Path(folderPath, fileName)

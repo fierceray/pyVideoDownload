@@ -1,9 +1,6 @@
-from flask import Flask, request, render_template, redirect
-import os.path
+from flask import Flask, request, render_template, redirect, send_from_directory
 
-import requests
-
-CHUNK_SIZE = 256
+from videoFile import VideoFile
 
 
 
@@ -14,8 +11,10 @@ def index():
     if request.method == 'POST':
         url = request.form.get('input_url')
         print(url)
-        print(os.path.exists('/media'))
-    return render_template("index.html")
+        videoFile = VideoFile(url)
+        path, file = videoFile.execute()
+
+    return send_from_directory(directory=path, filename=file)
 
 
 # Press the green button in the gutter to run the script.
